@@ -1,0 +1,96 @@
+<!-- Page Header Start -->
+<!-- <section class="page-header">
+    <div class="page-header-bg" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)">
+    </div>
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>Login</h2>
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="/">Home</a></li>
+                <li><span>/</span></li>
+                <li>Login</li>
+            </ul>
+        </div>
+    </div>
+</section> -->
+<!-- Page Header End -->
+<br>
+<br>
+<br>
+<br>
+<!-- Login Form Start -->
+<section class="contact-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <div class="contact-page__form" style="border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 40px;">
+                    <div class="section-title text-center">
+                        <h2 class="section-title__title">Login to Your Account</h2>
+                        <p class="mt-3">Use the same name, age, and email you entered during sign up.</p>
+                    </div>
+                    <form action="#" class="contact-page__form-box" id="loginForm">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="text" placeholder="Full Name" name="fullName" id="fullName" required style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="number" placeholder="Age" name="age" id="age" required min="1" style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="email" placeholder="Email Address" name="email" id="email" required style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__btn-box">
+                                    <button type="submit" class="thm-btn w-100" style="border-radius: 10px;">Login</button>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 mt-4 text-center">
+                                <p>Don't have an account? <a href="/sign-up" class="signup-link">Sign Up</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Login Form End -->
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const storedProfile = localStorage.getItem('healqUserProfile');
+        if (!storedProfile) {
+            alert('No profile found. Please sign up first.');
+            window.location.href = '/sign-up';
+            return;
+        }
+
+        const saved = JSON.parse(storedProfile);
+        const entered = {
+            fullName: document.getElementById('fullName').value.trim(),
+            age: document.getElementById('age').value.trim(),
+            email: document.getElementById('email').value.trim().toLowerCase()
+        };
+
+        const matches =
+            saved.fullName?.toLowerCase() === entered.fullName.toLowerCase() &&
+            saved.age === entered.age &&
+            saved.email === entered.email;
+
+        if (matches) {
+            localStorage.setItem('healqUserSession', JSON.stringify({ ...saved, loggedInAt: new Date().toISOString() }));
+            alert('Welcome back! You are now logged in.');
+            window.location.href = '/dashboard';
+        } else {
+            alert('Details do not match. Please check your name, age, and email.');
+        }
+    });
+</script> 

@@ -1,0 +1,79 @@
+<!-- Page Header Start -->
+<!-- <section class="page-header">
+    <div class="page-header-bg" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)">
+    </div>
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>Sign Up</h2>
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="/">Home</a></li>
+                <li><span>/</span></li>
+                <li>Sign Up</li>
+            </ul>
+        </div>
+    </div>
+</section> -->
+<!-- Page Header End -->
+<br>
+<br>
+<br>
+<br>
+<!-- Sign Up Form Start -->
+<section class="contact-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <div class="contact-page__form" style="border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 40px;">
+                    <div class="section-title text-center">
+                        <h2 class="section-title__title">Create Your Account</h2>
+                        <p class="mt-3">Create a simple profile to access HealQ. No passwords required.</p>
+                    </div>
+                    <form action="#" class="contact-page__form-box" id="signUpForm">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="text" placeholder="Full Name" name="fullName" id="fullName" required style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="number" placeholder="Age" name="age" id="age" required min="1" style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__input-box">
+                                    <input type="email" placeholder="Email Address" name="email" id="email" required style="border-radius: 10px; padding: 15px; border: 1px solid #e0e0e0;">
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="contact-page__btn-box">
+                                    <button type="submit" class="thm-btn w-100" style="border-radius: 10px;">Save & Continue</button>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 mt-4 text-center">
+                                <p>Already registered? <a href="/login" class="login-link">Go to login</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Sign Up Form End -->
+
+<script>
+    document.getElementById('signUpForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const profile = {
+            fullName: document.getElementById('fullName').value.trim(),
+            age: document.getElementById('age').value.trim(),
+            email: document.getElementById('email').value.trim().toLowerCase()
+        };
+
+        localStorage.setItem('healqUserProfile', JSON.stringify(profile));
+        alert('Profile saved! You can now log in with the same details.');
+        window.location.href = '/login';
+    });
+</script> 

@@ -1,0 +1,411 @@
+<div class="page-wrapper" style="padding-top:120px;">
+  <section class="landing-section landing-section--mint">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2 class="section-title__title">Welcome back, <span id="dashboardName">User</span></h2>
+        <p class="section-title__text" style="margin-top:10px;">Review your personal data, upload medical reports, and track the plans HealQ prepares for you.</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div style="background:#fff;border-radius:18px;padding:25px;box-shadow:0 20px 45px rgba(0,0,0,0.08);">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <p style="margin-bottom:6px;color:#7a8a84;">Full Name</p>
+                <strong id="profileName" style="font-size:18px;">-</strong>
+              </div>
+              <div class="col-md-4 mb-3 mb-md-0">
+                <p style="margin-bottom:6px;color:#7a8a84;">Age</p>
+                <strong id="profileAge" style="font-size:18px;">-</strong>
+              </div>
+              <div class="col-md-4">
+                <p style="margin-bottom:6px;color:#7a8a84;">Email</p>
+                <strong id="profileEmail" style="font-size:18px;">-</strong>
+              </div>
+            </div>
+            <div class="row text-center mt-4">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <p style="margin-bottom:6px;color:#7a8a84;">Reports uploaded</p>
+                <strong id="reportCount" style="font-size:20px;">0</strong>
+              </div>
+              <div class="col-md-4 mb-3 mb-md-0">
+                <p style="margin-bottom:6px;color:#7a8a84;">Last update</p>
+                <strong id="lastReportTime" style="font-size:16px;">-</strong>
+              </div>
+              <div class="col-md-4">
+                <p style="margin-bottom:6px;color:#7a8a84;">Next review</p>
+                <strong id="nextReview" style="font-size:16px;">-</strong>
+              </div>
+            </div>
+            <div class="landing-contact-cta" style="justify-content:flex-start;margin-top:20px;">
+              <button id="logoutBtn" class="thm-btn" style="background:#fff;color:#00856f;border:1px solid #cfeee6;">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div style="background:#f6fbf6;border-radius:18px;padding:25px;height:100%;">
+            <h4 style="margin-bottom:15px;">Submit your latest health report</h4>
+            <p style="margin-bottom:18px;color:#4a5c57;">Upload a PDF or image of lab work, prescriptions, or discharge notes. We keep your files private on this device and convert them into actionable guidance.</p>
+            <form id="reportForm">
+              <div class="mb-3">
+                <input type="file" id="reportFile" accept=".pdf,.jpg,.jpeg,.png" required style="width:100%;border:1px dashed #b6d5c7;border-radius:10px;padding:12px;background:#fff;">
+              </div>
+              <button type="submit" class="thm-btn w-100">Submit report<span class="icon-plus"></span></button>
+            </form>
+            <p id="uploadStatus" style="margin-top:15px;color:#59726c;font-size:14px;"></p>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div id="analysisPanel" style="background:#fff;border-radius:18px;padding:25px;box-shadow:0 20px 45px rgba(0,0,0,0.05);display:none;">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+              <div>
+                <h4 style="margin-bottom:6px;">Latest guidance</h4>
+                <p style="margin-bottom:0;color:#6a746f;">Based on <span id="currentReportName">your uploaded file</span></p>
+              </div>
+              <div class="landing-contact-cta" style="gap:10px;">
+                <button id="refreshPlanBtn" class="thm-btn" style="background:#fff;color:#00856f;border:1px solid #cfeee6;">Regenerate plan</button>
+                <button id="downloadPlanBtn" class="thm-btn">Download summary<span class="icon-plus"></span></button>
+              </div>
+            </div>
+            <hr style="margin:20px 0;border-top:1px solid #edf2ef;">
+            <div id="planResults"></div>
+          </div>
+          <div id="emptyState" style="background:#fff;border:1px dashed #d9e8df;border-radius:18px;padding:30px;text-align:center;height:100%;">
+            <p style="margin-bottom:10px;font-size:18px;font-weight:600;">Waiting for your first upload</p>
+            <p style="color:#6c756f;margin-bottom:0;">Plans will appear here as soon as you submit a report.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--soft">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div style="background:#fff;border-radius:18px;padding:25px;box-shadow:0 18px 45px rgba(0,0,0,0.05);height:100%;">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <h4 style="margin-bottom:6px;">Report history</h4>
+                <p style="margin-bottom:0;color:#6a746f;">Every upload stays here so you can revisit older plans.</p>
+              </div>
+              <span style="font-size:30px;">🗂️</span>
+            </div>
+            <ul id="historyList" style="list-style:none;padding-left:0;margin-top:20px;display:flex;flex-direction:column;gap:12px;"></ul>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div style="background:#fff;border-radius:18px;padding:25px;box-shadow:0 18px 45px rgba(0,0,0,0.05);height:100%;">
+            <h4 style="margin-bottom:6px;">Action checklist</h4>
+            <p style="margin-bottom:15px;color:#6a746f;">Tick items as you complete today’s plan.</p>
+            <div id="checklistContainer" style="display:flex;flex-direction:column;gap:10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--sunset">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2 class="section-title__title">Kota Specialists Ready To Help</h2>
+        <p class="section-title__text">Preferred doctors who can follow up on your reports within 24 hours.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 15px 40px rgba(0,0,0,0.06);">
+            <h5 style="margin-bottom:6px;">Dr. Aditi Sharma</h5>
+            <p style="margin-bottom:6px;color:#6a746f;">Internal Medicine · Kota Heart Clinic</p>
+            <p style="margin-bottom:12px;font-size:14px;color:#4e5a56;">Diabetes, hypertension, cardiac rehab.</p>
+            <a href="tel:+919999440011" class="thm-btn" style="width:100%;justify-content:center;">Call clinic<span class="icon-plus"></span></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 15px 40px rgba(0,0,0,0.06);">
+            <h5 style="margin-bottom:6px;">Dr. Manish Purohit</h5>
+            <p style="margin-bottom:6px;color:#6a746f;">Orthopedics · JK Lone Hospital</p>
+            <p style="margin-bottom:12px;font-size:14px;color:#4e5a56;">Injury recovery, posture correction, arthritis.</p>
+            <a href="tel:+919766220045" class="thm-btn" style="width:100%;justify-content:center;">Book visit<span class="icon-plus"></span></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 15px 40px rgba(0,0,0,0.06);">
+            <h5 style="margin-bottom:6px;">Dr. Sana Khan</h5>
+            <p style="margin-bottom:6px;color:#6a746f;">Dietician · City Care Center</p>
+            <p style="margin-bottom:12px;font-size:14px;color:#4e5a56;">Gut health, weight management, sports nutrition.</p>
+            <a href="tel:+919876112233" class="thm-btn" style="width:100%;justify-content:center;">Request consult<span class="icon-plus"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (() => {
+    const session = localStorage.getItem('healqUserSession') || localStorage.getItem('healqUserProfile');
+    if (!session) {
+      window.location.href = '/login';
+      return;
+    }
+
+    const profile = JSON.parse(session);
+    const profileName = profile.fullName || profile.firstName || 'User';
+    document.getElementById('dashboardName').textContent = profileName.split(' ')[0] || profileName;
+    document.getElementById('profileName').textContent = profileName;
+    document.getElementById('profileAge').textContent = profile.age || '-';
+    document.getElementById('profileEmail').textContent = profile.email || '-';
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('healqUserSession');
+      window.location.href = '/login';
+    });
+
+    const reportForm = document.getElementById('reportForm');
+    const reportFile = document.getElementById('reportFile');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const planResults = document.getElementById('planResults');
+    const analysisPanel = document.getElementById('analysisPanel');
+    const emptyState = document.getElementById('emptyState');
+    const currentReportName = document.getElementById('currentReportName');
+    const historyList = document.getElementById('historyList');
+    const checklistContainer = document.getElementById('checklistContainer');
+    const downloadPlanBtn = document.getElementById('downloadPlanBtn');
+    const refreshPlanBtn = document.getElementById('refreshPlanBtn');
+    const stats = {
+      count: document.getElementById('reportCount'),
+      last: document.getElementById('lastReportTime'),
+      next: document.getElementById('nextReview')
+    };
+
+    const REPORTS_KEY = 'healqReports';
+    const reports = JSON.parse(localStorage.getItem(REPORTS_KEY) || '[]');
+    let currentReportId = reports[0]?.id || null;
+
+    const dietPlans = [
+      'Warm millet khichdi with sautéed greens, soaked nuts, and herbal tea for detox.',
+      'High-fiber lentils, probiotic curd, seasonal fruits, and seed trail mix between meals.',
+      'Anti-inflammatory plate: leafy salads, roasted pumpkin, paneer/tofu, and basil water.'
+    ];
+
+    const exercisePlans = [
+      '30‑min brisk walk + 10‑min mobility routine. Weekend cycling or swimming.',
+      'Low-impact yoga (Surya Namaskar x6, cat-cow, child’s pose) and resistance bands twice a week.',
+      'Strength focus: chair squats, wall push-ups, glute bridges, and guided breathing drills.'
+    ];
+
+    const medicineNotes = [
+      'Continue Vitamin D3 + B12; log BP twice daily; hydrate 3L. Avoid duplicate OTC painkillers.',
+      'Maintain antihypertensives; pair antibiotics with probiotics; schedule follow-up CBC in 10 days.',
+      'Review thyroid or sugar meds with doctor, keep post-meal sugar log, and monitor sleep hours.'
+    ];
+
+    const doctorMatches = [
+      { name: 'Dr. Aditi Sharma', focus: 'Cardio-metabolic review · Kota Heart Clinic' },
+      { name: 'Dr. Manish Purohit', focus: 'Orthopedics & sports rehab · JK Lone Hospital' },
+      { name: 'Dr. Sana Khan', focus: 'Diet & lifestyle coaching · City Care Center' },
+      { name: 'Dr. Rahul Bansal', focus: 'Pulmonology · Rajeev Gandhi Institute' }
+    ];
+
+    function saveReports() {
+      localStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
+    }
+
+    function formatDate(dateString, includeTime = true) {
+      if (!dateString) return '-';
+      const date = new Date(dateString);
+      return date.toLocaleString('en-IN', includeTime
+        ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }
+        : { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function getNextReview(dateString) {
+      if (!dateString) return '-';
+      const date = new Date(dateString);
+      date.setDate(date.getDate() + 7);
+      return `${formatDate(date.toISOString(), false)} · 7-day check`;
+    }
+
+    function updateStats() {
+      stats.count.textContent = reports.length;
+      stats.last.textContent = reports[0] ? formatDate(reports[0].uploadedAt) : '-';
+      stats.next.textContent = reports[0] ? getNextReview(reports[0].uploadedAt) : '-';
+    }
+
+    function getDoctorRecommendations() {
+      return [...doctorMatches]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 2);
+    }
+
+    function renderChecklist(report) {
+      if (!report) {
+        checklistContainer.innerHTML = '<p style="color:#6a746f;margin:0;">Upload a report to unlock action items.</p>';
+        return;
+      }
+
+      const tasks = [
+        { id: 'diet', label: `Follow today’s diet guidance shared on ${formatDate(report.uploadedAt, false)}` },
+        { id: 'exercise', label: 'Complete the 30‑minute movement block and log perceived exertion' },
+        { id: 'meds', label: 'Confirm medication timings and set reminders inside HealQ' },
+        { id: 'doctor', label: 'Share summary with a Kota doctor if symptoms persist' }
+      ];
+
+      checklistContainer.innerHTML = tasks.map((task, idx) => `
+        <label style="display:flex;align-items:flex-start;gap:10px;color:#4e5a56;">
+          <input type="checkbox" ${idx === 0 ? 'checked' : ''} style="margin-top:5px;">
+          <span>${task.label}</span>
+        </label>
+      `).join('');
+    }
+
+    function renderHistory() {
+      if (!reports.length) {
+        historyList.innerHTML = `
+          <li style="padding:18px;border:1px dashed #d9e8df;border-radius:12px;text-align:center;color:#6a746f;">
+            No reports uploaded yet.
+          </li>
+        `;
+        return;
+      }
+
+      historyList.innerHTML = reports.map((report) => `
+        <li style="padding:16px;border:1px solid #edf2ef;border-radius:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+          <div>
+            <strong style="display:block;color:#1f1b16;">${report.fileName}</strong>
+            <span style="color:#6a746f;font-size:14px;">${formatDate(report.uploadedAt)}</span>
+          </div>
+          <button class="thm-btn" data-report-id="${report.id}" style="background:#fff;color:#00856f;border:1px solid #cfeee6;">View plan<span class="icon-plus"></span></button>
+        </li>
+      `).join('');
+    }
+
+    function buildPlanMarkup(report) {
+      const doctorList = getDoctorRecommendations();
+      return `
+        <div style="margin-bottom:18px;">
+          <h5>Diet plan</h5>
+          <p style="color:#4d5c59;">${report.diet}</p>
+        </div>
+        <div style="margin-bottom:18px;">
+          <h5>Exercise plan</h5>
+          <p style="color:#4d5c59;">${report.exercise}</p>
+        </div>
+        <div style="margin-bottom:18px;">
+          <h5>Medicine recommendations</h5>
+          <p style="color:#4d5c59;">${report.medicine}</p>
+        </div>
+        <div style="margin-bottom:18px;">
+          <h5>Kota doctor suggestions</h5>
+          <ul style="margin:0;padding-left:18px;color:#4d5c59;">
+            ${doctorList.map(doc => `<li><strong>${doc.name}</strong> — ${doc.focus}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    function showPlan(report) {
+      if (!report) return;
+      currentReportId = report.id;
+      currentReportName.textContent = report.fileName;
+      planResults.innerHTML = buildPlanMarkup(report);
+      analysisPanel.style.display = 'block';
+      emptyState.style.display = 'none';
+      renderChecklist(report);
+    }
+
+    reportForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const file = reportFile.files[0];
+      if (!file) return;
+
+      uploadStatus.textContent = 'Uploading and parsing report...';
+
+      setTimeout(() => {
+        const newReport = {
+          id: Date.now(),
+          fileName: file.name,
+          uploadedAt: new Date().toISOString(),
+          diet: dietPlans[Math.floor(Math.random() * dietPlans.length)],
+          exercise: exercisePlans[Math.floor(Math.random() * exercisePlans.length)],
+          medicine: medicineNotes[Math.floor(Math.random() * medicineNotes.length)]
+        };
+
+        reports.unshift(newReport);
+        saveReports();
+        updateStats();
+        renderHistory();
+        showPlan(newReport);
+        uploadStatus.textContent = `Report "${file.name}" processed successfully.`;
+        reportForm.reset();
+      }, 900);
+    });
+
+    historyList.addEventListener('click', (event) => {
+      const target = event.target.closest('[data-report-id]');
+      if (!target) return;
+      const reportId = Number(target.dataset.reportId);
+      const selected = reports.find((report) => report.id === reportId);
+      showPlan(selected);
+    });
+
+    downloadPlanBtn.addEventListener('click', () => {
+      if (!currentReportId) {
+        alert('Upload a report first to download a plan.');
+        return;
+      }
+      const report = reports.find((entry) => entry.id === currentReportId);
+      if (!report) return;
+      const summary = [
+        'HealQ Report Summary',
+        `Generated for: ${profileName}`,
+        `Report file: ${report.fileName}`,
+        `Uploaded at: ${formatDate(report.uploadedAt)}`,
+        '',
+        `Diet plan: ${report.diet}`,
+        `Exercise plan: ${report.exercise}`,
+        `Medicine notes: ${report.medicine}`
+      ].join('\n');
+
+      const blob = new Blob([summary], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `healq-plan-${report.id}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    });
+
+    refreshPlanBtn.addEventListener('click', () => {
+      if (!currentReportId) {
+        alert('Upload a report first to generate guidance.');
+        return;
+      }
+      const targetIndex = reports.findIndex((entry) => entry.id === currentReportId);
+      if (targetIndex === -1) return;
+
+      reports[targetIndex].diet = dietPlans[Math.floor(Math.random() * dietPlans.length)];
+      reports[targetIndex].exercise = exercisePlans[Math.floor(Math.random() * exercisePlans.length)];
+      reports[targetIndex].medicine = medicineNotes[Math.floor(Math.random() * medicineNotes.length)];
+      saveReports();
+      showPlan(reports[targetIndex]);
+      uploadStatus.textContent = 'Plan refreshed just now.';
+    });
+
+    updateStats();
+    renderHistory();
+    if (reports.length) {
+      showPlan(reports[0]);
+    } else {
+      renderChecklist(null);
+    }
+  })();
+</script>
