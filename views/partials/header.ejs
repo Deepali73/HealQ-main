@@ -46,19 +46,7 @@
                                 <li class="<%= page === 'services' ? 'current' : '' %>">
                                     <a href="/services">Services</a>
                                 </li>
-                                <li class="dropdown <%= page === 'shop' ? 'current' : '' %>">
-                                    <a href="#">Shop</a>
-                                    <ul>
-                                        <li><a href="/shop">Quick-Med Shop</a></li>
-                                        <!-- <li><a href="/products">Products</a></li> -->
-                                        <!-- <li><a href="/product-details">Product Details</a></li> -->
-                                        <li><a href="/cart">Cart</a></li>
-                                        <li><a href="/checkout">Checkout</a></li>
-                                        <li><a href="/wishlist">Wishlist</a></li>
-                                        <!-- <li><a href="/sign-up">Sign Up</a></li>
-                                        <li><a href="/login">Login</a></li> -->
-                                    </ul>
-                                </li>
+                                <!-- Shop menu removed as per requirement -->
                                 <!-- <li class="dropdown <%= page === 'blog' ? 'current' : '' %>">
                                     <a href="#">Blog</a>
                                     <ul>
@@ -69,6 +57,9 @@
                                         <li><a href="/blog-details">Blog Details</a></li>
                                     </ul>
                                 </li> -->
+                                <li class="<%= page === 'wishlist' ? 'current' : '' %>">
+                                    <a href="/wishlist">Wishlist</a>
+                                </li>
                                 <li class="<%= page === 'contact' ? 'current' : '' %>">
                                     <a href="/contact">Contact</a>
                                 </li>

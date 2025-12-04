@@ -321,11 +321,11 @@ class ReminderService {
    * @returns {Promise} - Email sending result
    */
   async sendTestEmail(email) {
-    const subject = 'Test Reminder from ResQ Health';
+    const subject = 'Test Reminder from HealQ Health';
     const message = `
       <h2>Test Reminder</h2>
-      <p>This is a test reminder from ResQ Health. If you received this email, your reminder system is working correctly!</p>
-      <p>Thank you for using ResQ Health Services!</p>
+      <p>This is a test reminder from HealQ Health. If you received this email, your reminder system is working correctly!</p>
+      <p>Thank you for using HealQ Health Services!</p>
     `;
     
     return emailService.sendEmail(email, subject, message);

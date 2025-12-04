@@ -60,6 +60,12 @@ body {
   z-index: 1;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 
 body.locked {
   overflow: hidden;
@@ -2496,6 +2502,104 @@ ul {
 .main-menu__logo {
     display: flex;
     align-items: center;
+}
+
+/* Home page alignment helpers */
+.home-page {
+  padding-top: 130px;
+}
+
+.home-page p {
+  text-align: justify;
+}
+
+.home-page .section-title__text {
+  text-align: center;
+}
+
+.home-page img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* About page spacing */
+.about-page {
+  padding-top: 130px;
+}
+
+.services-page {
+  padding-top: 130px;
+}
+
+.contact-page-wrapper {
+  padding-top: 130px;
+}
+
+/* ==== HealQ Theme Enhancements ==== */
+
+/* Accents on small taglines */
+.section-title__tagline,
+.section-title-two__tagline,
+.section-title-three__tagline {
+  color: #00856f;
+}
+
+/* Service cards – softer surfaces + hover */
+.services-two__single {
+  background-color: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #d9e8df;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+}
+
+.services-two__single:hover {
+  border-color: #9ad4c0;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+}
+
+/* Contact page background + card */
+.contact-page {
+  background: linear-gradient(180deg, #f6fbf6 0%, #ffffff 55%);
+}
+
+.contact-page__form {
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+  padding: 25px 25px 30px;
+}
+
+.contact-page__input-box input,
+.contact-page__input-box textarea {
+  border-color: #cfe3d8;
+}
+
+.contact-page__right {
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+  padding: 25px 25px 30px;
+}
+
+/* About & why-choose images – subtle shadow */
+.about-one__img img,
+.why-choose-one__img img {
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.05);
+}
+
+/* Dashboard/report cards (where used) */
+.landing-feature-card,
+.visual-gallery__card {
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+.landing-feature-card:hover,
+.visual-gallery__card:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
 }
 
 /* Optional: Add hover effect */

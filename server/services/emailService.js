@@ -54,7 +54,7 @@ class EmailService {
         <li><strong>Location:</strong> ${appointment.location}</li>
       </ul>
       ${appointment.notes ? `<p><strong>Notes:</strong> ${appointment.notes}</p>` : ''}
-      <p>Thank you for using ResQ Health Services!</p>
+      <p>Thank you for using HealQ Health Services!</p>
     `;
 
     return this.sendEmail(user.email, subject, message);
@@ -83,7 +83,7 @@ class EmailService {
         <li><strong>Time:</strong> ${time}</li>
       </ul>
       ${medication.instructions ? `<p><strong>Instructions:</strong> ${medication.instructions}</p>` : ''}
-      <p>Thank you for using ResQ Health Services!</p>
+      <p>Thank you for using HealQ Health Services!</p>
     `;
 
     return this.sendEmail(user.email, subject, message);
